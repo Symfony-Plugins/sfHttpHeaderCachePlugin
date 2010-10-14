@@ -18,48 +18,48 @@ Firstly, install the plugin in the usual way (either on with the cli or using sv
 
 Next, set your factories.yml to use the sfHttpHeaderCache class provided by the plugin:
 
-  all:
-    view_cache:
-      class:    sfHttpHeaderCache
-      param:
-        headers:
-          Expires:        "%EXPIRE_TIME%"
-          Last-Modified:  "%LAST_MODIFIED%"
-          Cache-Control:  "public, max_age=%LIFETIME%"
-          ETag:           '%ETAG%'
+    all:
+      view_cache:
+        class:    sfHttpHeaderCache
+        param:
+          headers:
+            Expires:        "%EXPIRE_TIME%"
+            Last-Modified:  "%LAST_MODIFIED%"
+            Cache-Control:  "public, max_age=%LIFETIME%"
+            ETag:           '%ETAG%'
 
 Then, make sure settings.yml is set to enable caching:
 
-  prod:
-    cache: true
+    prod:
+      cache: true
 
 For all actions that you'd like to cache, you should then configure your project's, app's or modules's cache.yml to do so:
 
-  default:
-    enabled: true
-    with_layout: true # Headers are only sent for caches with layout
-    lifetime: 3600
+    default:
+      enabled: true
+      with_layout: true # Headers are only sent for caches with layout
+      lifetime: 3600
 
 The nature of this plugin is that it only caches whole-page responses with the layout and all. If you'd like to use the partial cache as well, you can embellish the factories.yml with an alternative cache like so:
 
-  all:
-    view_cache:
-      class:    sfHttpHeaderCache
-      param:
-        headers:
-          Expires:        "%EXPIRE_TIME%"
-          Last-Modified:  "%LAST_MODIFIED%"
-          Cache-Control:  "public, max_age=%LIFETIME%"
-          ETag:           '%ETAG%'
-        alt:
-          cache: 
-            # This could be any of the Symfony API caches, defaults to sfNoCache
-            class: sfMemcacheCache
-            # Any valid options for your selected alt-cache
-            param:
-              servers: # Array of servers
-                localhost:
-                  host: 127.0.0.1
+    all:
+      view_cache:
+        class:    sfHttpHeaderCache
+        param:
+          headers:
+            Expires:        "%EXPIRE_TIME%"
+            Last-Modified:  "%LAST_MODIFIED%"
+            Cache-Control:  "public, max_age=%LIFETIME%"
+            ETag:           '%ETAG%'
+          alt:
+            cache: 
+              # This could be any of the Symfony API caches, defaults to sfNoCache
+              class: sfMemcacheCache
+              # Any valid options for your selected alt-cache
+              param:
+                servers: # Array of servers
+                  localhost:
+                    host: 127.0.0.1
 
 Credits
 -------
