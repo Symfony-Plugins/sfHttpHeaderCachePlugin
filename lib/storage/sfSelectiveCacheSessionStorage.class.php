@@ -9,8 +9,6 @@ class sfSelectiveCacheSessionStorage extends sfCacheSessionStorage
 {
   public function initialize($options = array())
   {
-    $routing = sfContext::getInstance()->getRouting();
-    
     if(!$this->isSessionlessRoute())
     {
       // initialize parent
